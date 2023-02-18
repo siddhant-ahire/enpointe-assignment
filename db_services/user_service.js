@@ -15,6 +15,19 @@ const insertIntoUser = (object) => {
         });
 };
 
+const selectUsers = (filters = {}) => {
+    return knex(constants.name)
+        .select('*')
+        .where(filters)
+        .then((res) => {
+            return res
+        })
+        .catch((error) => {
+            throw error;
+        });
+};
+
 module.exports = {
     insertIntoUser,
+    selectUsers
 }

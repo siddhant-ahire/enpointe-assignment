@@ -29,7 +29,6 @@ const selectSections = (filters = {}) => {
 };
 
 const updateSection = (searchObject, object) => {
-    // object.updated_at = Date.now();
     return knex(constants.name)
         .returning("*")
         .where(searchObject)

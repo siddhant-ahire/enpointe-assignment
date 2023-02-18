@@ -7,11 +7,11 @@ const categoryModel = require('../../models/category_model');
 const createCategory = async (req, res) => {
     try {
         const validatedModel = joiModelValidation(req, res, 'insertCategory', categoryModel)
-        if(validatedModel) {
+        if (validatedModel === true) {
             let category = await categoryService.insertIntoCategory(req.body)
-            if(category) {   
+            if (category) {
                 return res.status(200).send({
-                    success: true , 
+                    success: true,
                     message: 'category added successfully!',
                     data: category
                 });
@@ -23,6 +23,22 @@ const createCategory = async (req, res) => {
     }
 };
 
+const getCategories = async (req, res) => {
+    try {
+        let category = await categoryService.selectCategories();
+        if (category) {
+            return res.status(200).send({
+                success: true,
+                message: 'category fetched successfully!',
+                data: category
+            });
+        }
+    } catch (error) {
+        return handleErrors(error, res);
+    }
+};
+
 module.exports = {
-    createCategory
+    createCategory,
+    getCategories
 }

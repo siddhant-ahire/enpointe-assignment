@@ -15,6 +15,20 @@ const insertIntoCategory = (object) => {
         });
 };
 
+const selectCategories = (filters = {}) => {
+    return knex(constants.name)
+        .select('*')
+        .where(filters)
+        .then((res) => {
+            return res
+        })
+        .catch((error) => {
+            throw error;
+        });
+};
+
+
 module.exports = {
     insertIntoCategory,
+    selectCategories
 }

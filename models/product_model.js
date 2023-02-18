@@ -5,7 +5,6 @@ const insertProduct = Joi.object({
     quantity: Joi.number().required(),
     category_id: Joi.string().uuid().required(), 
     section_id: Joi.string().uuid().required(), 
-    adding_type: Joi.number().required()
 });
 
 module.exports = {

@@ -6,7 +6,7 @@ const warehouseModel = require('../../models/warehouse_model');
 const createWarehouse = async (req, res) => {
     try {
         const validatedModel = joiModelValidation(req, res, 'insertWarehouse', warehouseModel)
-        if (validatedModel) {
+        if (validatedModel === true) {
             req.body.total_capacity = req.body.capacity;
             let warehouse = await warehouseService.insertIntoWarehouse(req.body)
             if (warehouse) {

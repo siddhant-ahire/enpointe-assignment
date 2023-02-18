@@ -8,7 +8,7 @@ const sectionModel = require('../../models/section_model');
 const createSection = async (req, res) => {
     try {
         const validatedModel = joiModelValidation(req, res, 'insertSection', sectionModel)
-        if(validatedModel) {
+        if(validatedModel === true) {
             let warehouse_id = req.body.warehouse_id;
             let currentWarehouse = await warehouseService.selectWarehouses({warehouse_id});
             if(Array.isArray(currentWarehouse) && currentWarehouse.length === 1) {

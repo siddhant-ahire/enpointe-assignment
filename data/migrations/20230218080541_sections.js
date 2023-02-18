@@ -7,7 +7,7 @@ exports.up = async function(knex) {
         table.uuid("section_id").primary(); 
         table.string("name");
         table.integer("capacity").defaultTo(0);
-        table.uuid("warehouse_id").references('warehouse_id').inTable('warehouses');
+        table.uuid("warehouse_id").references('warehouses.warehouse_id');
         table.boolean("is_deleted").defaultTo(false);
         table.timestamps(true, true);
     })

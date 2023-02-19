@@ -1,6 +1,7 @@
 const knex = require("../data/knex");
 const uuid4 = require("uuid4");
 const constants = require('../controllers/section/constant');
+const { removeForeignKeyChecks, addForeignKeyChecks } = require("./helper_functions_service");
 
 const insertIntoSection = (object) => {
     object.section_id = uuid4();
@@ -28,12 +29,14 @@ const selectSections = (filters = {}) => {
         });
 };
 
-const updateSection = (searchObject, object) => {
+const updateSection = async (searchObject, object) => {
+    await removeForeignKeyChecks();
     return knex(constants.name)
         .returning("*")
         .where(searchObject)
         .update(object)
-        .then(() => {
+        .then(async () => {
+            await addForeignKeyChecks();
             return true;
         })
         .catch((error) => {

@@ -28,7 +28,7 @@ const selectProducts = (filters = {}) => {
         });
 };
 
-const updateSection = async (searchObject, object) => {
+const updateProduct = async (searchObject, object) => {
     await removeForeignKeyChecks();
     return knex(constants.name)
         .returning("*")
@@ -46,5 +46,5 @@ const updateSection = async (searchObject, object) => {
 module.exports = {
     insertIntoProduct,
     selectProducts,
-    updateSection
+    updateProduct
 }

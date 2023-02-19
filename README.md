@@ -4,7 +4,9 @@ Step 2: Run command : npm install
 
 Step 3: Run command : knex migrate:latest
 
-Step 4: To check server is running go to the browser enter url : http://localhost:{PORT}
+Step 4: Run command : npm run start-dev
+
+Step 5: To check server is running go to the browser enter url : http://localhost:{PORT}
 
 
 You can use given postman collection to check apis. In the root folder : enpointe assignment.postman_collection.json

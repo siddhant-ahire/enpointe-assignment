@@ -17,8 +17,10 @@ const insertIntoSection = (object) => {
 };
 
 const selectSections = (filters = {}) => {
-    return knex(constants.name)
-        .select('*')
+    return knex
+        .select('se.*', 'wr.name as warehouse_name')
+        .from('sections AS se')
+        .leftJoin('warehouses AS wr', 'wr.warehouse_id', 'se.warehouse_id')
         .where({is_deleted: false})
         .where(filters)
         .then((res) => {

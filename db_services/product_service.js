@@ -17,9 +17,13 @@ const insertIntoProduct = (object) => {
 };
 
 const selectProducts = (filters = {}) => {
-    return knex(constants.name)
-        .select('*')
+    return knex
+        .select('pr.product_id', 'pr.quantity', 'pr.name as product_name', 'ca.name as category_name', 'se.name as section_name', 'wr.name as warehouse_name')
         .where(filters)
+        .from('products AS pr')
+        .leftJoin('categories AS ca', 'ca.category_id', 'pr.category_id')
+        .leftJoin('sections AS se', 'se.section_id', 'pr.section_id')
+        .leftJoin('warehouses AS wr', 'wr.warehouse_id', 'se.warehouse_id')
         .then((res) => {
             return res
         })

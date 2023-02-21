@@ -17,7 +17,6 @@ const register = async (req, res) => {
                 });
             }
         }
-
     } catch (error) {
         return handleErrors(error, res);
     }

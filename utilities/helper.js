@@ -5,6 +5,7 @@ require('dotenv').config({ path: __dirname + '/.env' });
 
 
 function joiModelValidation(req, res, modelName, joiModel) {
+    console.log(req.form)
     const validation = joiModel[modelName].validate(req.body);
     if (validation.error) {
         return res.status(400).send({

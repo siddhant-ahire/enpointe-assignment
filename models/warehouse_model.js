@@ -4,7 +4,7 @@ const insertWarehouse = Joi.object({
     name: Joi.string().required(),
     location: Joi.string().required(),
     unique_code: Joi.number().required(),
-    status: Joi.string().required(),
+    status: Joi.boolean().required(),
     capacity: Joi.number().required(),
 });
 

@@ -19,7 +19,7 @@ const createSection = async (req, res) => {
                     req.body.capacity = currentWarehouseCapacity - 1
                 }
                 if(currentWarehouseCapacity < req.body.capacity) {
-                    return res.status(200).send({
+                    return res.status(400).send({
                         success: false , 
                         message: `section capacity is more than warehouse capacity`,
                         data: {}

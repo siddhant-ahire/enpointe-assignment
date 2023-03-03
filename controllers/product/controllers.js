@@ -55,22 +55,25 @@ const getProducts = async (req, res) => {
 const moveProductToOtherSection = async (req, res) => {
     try {
         let product = await productService.selectProducts({ product_id: req.body.product_id});
-        let oldSection = await sectionService.selectSections({ section_id: product[0].section_id});
-        let newSection = await sectionService.selectSections({ section_id: req.body.new_section_id});
-        if(newSection.length === 1){
-            let oldSectionCapacity = oldSection[0].capacity;
-            let newSectionCapacity = newSection[0].capacity;
-            let productQuantity = product[0].quantity;
-            if(newSectionCapacity >= productQuantity) {
-                let updateOldSection = await sectionService.updateSection({ section_id: oldSection[0].section_id }, { capacity: oldSectionCapacity - productQuantity });
-                let updateNewSection = await sectionService.updateSection({ section_id: newSection[0].section_id }, { capacity: newSectionCapacity + productQuantity });
-                let updateProduct = await productService.updateProduct({ product_id: req.body.product_id }, { section_id: req.body.new_section_id });
-                if (updateProduct && updateOldSection && updateNewSection) {
-                    return res.status(200).send({
-                        success: true,
-                        message: 'product moved successfully',
-                        data: {}
-                    });
+        if(product.length === 1) {
+            console.log('working', product)
+            let oldSection = await sectionService.selectSections({ section_id: product[0].section_id});
+            let newSection = await sectionService.selectSections({ section_id: req.body.new_section_id});
+            if(newSection.length === 1){
+                let oldSectionCapacity = oldSection[0].capacity;
+                let newSectionCapacity = newSection[0].capacity;
+                let productQuantity = product[0].quantity;
+                if(newSectionCapacity >= productQuantity) {
+                    let updateOldSection = await sectionService.updateSection({ section_id: oldSection[0].section_id }, { capacity: oldSectionCapacity - productQuantity });
+                    let updateNewSection = await sectionService.updateSection({ section_id: newSection[0].section_id }, { capacity: newSectionCapacity + productQuantity });
+                    let updateProduct = await productService.updateProduct({ product_id: req.body.product_id }, { section_id: req.body.new_section_id });
+                    if (updateProduct && updateOldSection && updateNewSection) {
+                        return res.status(200).send({
+                            success: true,
+                            message: 'product moved successfully',
+                            data: {}
+                        });
+                    }
                 }
             }
         }

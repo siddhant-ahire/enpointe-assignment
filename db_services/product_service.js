@@ -18,7 +18,7 @@ const insertIntoProduct = (object) => {
 
 const selectProducts = (filters = {}) => {
     return knex
-        .select('pr.product_id', 'pr.quantity', 'pr.name as product_name', 'ca.name as category_name', 'se.name as section_name', 'wr.name as warehouse_name')
+        .select('pr.product_id', 'pr.section_id', 'pr.quantity', 'pr.name as product_name', 'ca.name as category_name', 'se.name as section_name', 'wr.name as warehouse_name')
         .where(filters)
         .from('products AS pr')
         .leftJoin('categories AS ca', 'ca.category_id', 'pr.category_id')

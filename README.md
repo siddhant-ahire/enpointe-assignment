@@ -2,7 +2,7 @@ Stpe 1: Create Database Mysql add db_name into .env
 
 Step 2: Run command : npm install
 
-Step 3: Run command : knex migrate:latest
+Step 3: Run command : npx prisma migrate dev --name init
 
 Step 4: Run command : npm run start-dev
 

@@ -57,8 +57,19 @@ const createSection = async (req, res) => {
 
 const getSections = async (req, res) => {
     try {
-        let section = await prisma.sections.findMany()
+        let section = await prisma.sections.findMany({
+            include: {
+                warehouses: true
+            }
+        })
         if(section) {   
+            section = section.map(sec => {
+                return {
+                    ...sec,
+                    warehouse_name: sec.warehouses.name,
+                    warehouses: undefined
+                }
+            })
             return res.status(200).send({
                 success: true , 
                 message: 'section fetched successfully!',

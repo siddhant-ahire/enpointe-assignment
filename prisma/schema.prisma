@@ -18,6 +18,7 @@ model Warehouses {
   status         String @db.VarChar(255) @default("inactive")
   capacity       Int @default(0)
   total_capacity Int @default(0)
+  sections       Sections[]
   created_at     DateTime   @default(now())
   updated_at     DateTime   @default(now())
 }
@@ -26,8 +27,10 @@ model Sections {
   section_id    String @id @db.Char(36)
   name          String @db.VarChar(255)
   capacity      Int @default(0)
+  warehouses    Warehouses @relation(fields: [warehouse_id], references: [warehouse_id])
   warehouse_id  String @db.Char(36)
   is_deleted    Int @default(0)
+  products      Products[]
   created_at    DateTime   @default(now())
   updated_at    DateTime   @default(now())
 }
@@ -37,13 +40,16 @@ model Categories {
   name          String @db.VarChar(255)
   created_at    DateTime   @default(now())
   updated_at    DateTime   @default(now())
+  products       Products[]
 }
 
 model Products {
   product_id    String @id @db.Char(36)
   name          String @db.VarChar(255)
   quantity      Int @default(0)
+  categories    Categories @relation(fields: [category_id], references: [category_id])
   category_id   String @db.Char(36)
+  sections      Sections @relation(fields: [section_id], references: [section_id])
   section_id    String @db.Char(36)
   created_at    DateTime   @default(now())
   updated_at    DateTime   @default(now())

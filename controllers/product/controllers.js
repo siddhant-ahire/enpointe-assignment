@@ -50,10 +50,21 @@ const getProducts = async (req, res) => {
     try {
         let products = await prisma.products.findMany({
             include: {
-                categories: true
+                categories: true,
+                sections: true
             }
         });
         if (products) {
+            products = products.map(pro => {
+                return {
+                    ...pro,
+                    product_name: pro.name,
+                    category_name: pro.categories.name,
+                    section_name: pro.sections.name,
+                    categories: undefined,
+                    sections: undefined
+                }
+            })
             return res.status(200).send({
                 success: true,
                 message: 'products fetched successfully!',

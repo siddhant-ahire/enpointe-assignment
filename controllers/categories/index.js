@@ -3,7 +3,7 @@ const { isAuthenticated } = require("../../utilities/helper");
 const router = express.Router();
 const controllers = require("./controllers")
 
-router.post("/create", isAuthenticated, controllers.createCategory);
-router.get("/list", isAuthenticated, controllers.getCategories);
+router.post("/create", controllers.createCategory);
+router.get("/list", controllers.getCategories);
 
 module.exports = router;
